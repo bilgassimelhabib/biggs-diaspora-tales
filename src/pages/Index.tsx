@@ -1,8 +1,9 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Play, ArrowDown, Headphones } from "lucide-react";
+import { Play, Headphones } from "lucide-react";
 import Header from "@/components/Header";
 import PodcastCard from "@/components/PodcastCard";
 
@@ -83,23 +84,19 @@ const Index = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-medium px-8 py-3">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-3 btn-text-visible">
                 <Play className="h-5 w-5 mr-2" />
                 Écouter maintenant
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-white/30 text-white hover:bg-white/10 px-8 py-3"
+                className="border-white/30 text-white hover:bg-white/10 px-8 py-3 btn-white-text"
               >
                 <Headphones className="h-5 w-5 mr-2" />
                 Découvrir nos podcasts
               </Button>
             </div>
-          </div>
-          
-          <div className="mt-16 animate-bounce">
-            <ArrowDown className="h-6 w-6 mx-auto text-white/60" />
           </div>
         </div>
       </section>
@@ -126,9 +123,8 @@ const Index = () => {
           
           <div className="text-center">
             <Link to="/podcasts">
-              <Button size="lg" variant="outline" className="group">
+              <Button size="lg" variant="outline" className="group btn-outline-text">
                 Voir tous les podcasts
-                <ArrowDown className="h-4 w-4 ml-2 rotate-[-90deg] transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
           </div>
@@ -165,7 +161,7 @@ const Index = () => {
               </div>
               <div className="mt-8">
                 <Link to="/about">
-                  <Button size="lg">En savoir plus</Button>
+                  <Button size="lg" className="btn-white-text">En savoir plus</Button>
                 </Link>
               </div>
             </div>
@@ -209,7 +205,7 @@ const Index = () => {
                   placeholder="Votre adresse email"
                   className="flex-1 px-4 py-3 rounded-lg text-foreground border border-white/20 bg-white/10 backdrop-blur-sm placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-white/30"
                 />
-                <Button className="bg-white text-primary hover:bg-white/90 font-medium px-6">
+                <Button className="bg-white text-primary hover:bg-white/90 font-semibold px-6 btn-text-visible">
                   S'abonner
                 </Button>
               </div>
