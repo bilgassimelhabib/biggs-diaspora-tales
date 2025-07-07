@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Play, Headphones } from "lucide-react";
+import { useState } from "react";
 import Header from "@/components/Header";
 import PodcastCard from "@/components/PodcastCard";
+import { useNewsletter } from "@/hooks/useNewsletter";
 
 // Mock data pour les podcasts
 const featuredPodcasts = [
@@ -57,6 +59,17 @@ const featuredPodcasts = [
 ];
 
 const Index = () => {
+  const [email, setEmail] = useState("");
+  const { subscribe, loading } = useNewsletter();
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      await subscribe(email);
+      setEmail("");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -84,17 +97,17 @@ const Index = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-3 btn-text-visible">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-3">
                 <Play className="h-5 w-5 mr-2" />
-                Écouter maintenant
+                <span className="text-primary font-semibold">Écouter maintenant</span>
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-white/30 text-white hover:bg-white/10 px-8 py-3 btn-white-text"
+                className="border-white/30 text-white hover:bg-white/10 px-8 py-3"
               >
                 <Headphones className="h-5 w-5 mr-2" />
-                Découvrir nos podcasts
+                <span className="text-white font-semibold">Découvrir nos podcasts</span>
               </Button>
             </div>
           </div>
@@ -123,8 +136,8 @@ const Index = () => {
           
           <div className="text-center">
             <Link to="/podcasts">
-              <Button size="lg" variant="outline" className="group btn-outline-text">
-                Voir tous les podcasts
+              <Button size="lg" variant="outline" className="group">
+                <span className="text-primary font-semibold">Voir tous les podcasts</span>
               </Button>
             </Link>
           </div>
@@ -161,7 +174,9 @@ const Index = () => {
               </div>
               <div className="mt-8">
                 <Link to="/about">
-                  <Button size="lg" className="btn-white-text">En savoir plus</Button>
+                  <Button size="lg">
+                    <span className="text-white font-semibold">En savoir plus</span>
+                  </Button>
                 </Link>
               </div>
             </div>
@@ -199,16 +214,25 @@ const Index = () => {
                 Recevez les derniers épisodes, les actualités de nos créateurs 
                 et les événements de la communauté directement dans votre boîte mail.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                 <input
                   type="email"
                   placeholder="Votre adresse email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 px-4 py-3 rounded-lg text-foreground border border-white/20 bg-white/10 backdrop-blur-sm placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-white/30"
+                  required
                 />
-                <Button className="bg-white text-primary hover:bg-white/90 font-semibold px-6 btn-text-visible">
-                  S'abonner
+                <Button 
+                  type="submit" 
+                  disabled={loading}
+                  className="bg-white text-primary hover:bg-white/90 font-semibold px-6"
+                >
+                  <span className="text-primary font-semibold">
+                    {loading ? 'Chargement...' : 'S\'abonner'}
+                  </span>
                 </Button>
-              </div>
+              </form>
             </CardContent>
           </Card>
         </div>
