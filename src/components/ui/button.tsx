@@ -10,17 +10,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-white hover:bg-primary-hover transition-all duration-300 btn-white-text",
+        default: "bg-primary text-primary-foreground hover:bg-primary-hover transition-all duration-300 font-semibold",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 btn-white-text",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 font-semibold",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground btn-outline-text",
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground font-semibold text-foreground",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 btn-text-visible",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 font-semibold",
         ghost: "hover:bg-accent hover:text-accent-foreground text-foreground font-semibold",
         link: "text-primary underline-offset-4 hover:underline font-semibold",
-        podcast: "bg-gradient-podcast text-white hover:shadow-glow hover:scale-105 transition-all duration-300 btn-white-text",
-        hero: "bg-white/10 text-white border border-white/20 hover:bg-white/20 backdrop-blur-sm transition-all duration-300 btn-white-text",
+        podcast: "bg-gradient-podcast text-white hover:shadow-glow hover:scale-105 transition-all duration-300 font-semibold",
+        hero: "bg-white/10 text-white border border-white/20 hover:bg-white/20 backdrop-blur-sm transition-all duration-300 font-semibold",
       },
       size: {
         default: "h-10 px-4 py-2",

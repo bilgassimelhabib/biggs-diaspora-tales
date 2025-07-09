@@ -14,9 +14,11 @@ const Header = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-podcast rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">B</span>
-            </div>
+            <img 
+              src="/lovable-uploads/efe2ceef-7788-4a2e-b05e-99ffc2602b4c.png" 
+              alt="Bigg's Media Logo" 
+              className="w-8 h-8 object-contain"
+            />
             <span className="font-bold text-xl">Bigg's Media</span>
           </div>
         </Link>
