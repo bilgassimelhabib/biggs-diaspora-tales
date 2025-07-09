@@ -102,12 +102,12 @@ const Index = () => {
                 <span className="text-primary font-semibold">Écouter maintenant</span>
               </Button>
               <Button 
-                variant="outline" 
+                variant="hero" 
                 size="lg" 
-                className="border-white/30 text-white hover:bg-white/10 px-8 py-3"
+                className="px-8 py-3"
               >
                 <Headphones className="h-5 w-5 mr-2" />
-                <span className="text-white font-semibold">Découvrir nos podcasts</span>
+                Découvrir nos podcasts
               </Button>
             </div>
           </div>
