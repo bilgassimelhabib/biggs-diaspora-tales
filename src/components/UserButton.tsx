@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User, LogOut, Settings } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useI18n } from "@/hooks/useI18n";
 import AuthModal from "./AuthModal";
 
 export default function UserButton() {
@@ -14,6 +15,7 @@ export default function UserButton() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   const { toast } = useToast();
+  const { t } = useI18n();
 
   useEffect(() => {
     // Get initial session
@@ -75,7 +77,7 @@ export default function UserButton() {
             setShowAuthModal(true);
           }}
         >
-          Se connecter
+          {t('nav.signin')}
         </Button>
         <AuthModal
           isOpen={showAuthModal}

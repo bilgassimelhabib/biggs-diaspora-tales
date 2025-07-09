@@ -4,9 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import UserButton from "./UserButton";
+import LanguageToggle from "./LanguageToggle";
+import { useI18n } from "@/hooks/useI18n";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useI18n();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -25,22 +28,20 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="text-foreground hover:text-primary transition-colors">
-            Accueil
-          </Link>
           <Link to="/podcasts" className="text-foreground hover:text-primary transition-colors">
-            Podcasts
+            {t('nav.podcasts')}
           </Link>
           <Link to="/about" className="text-foreground hover:text-primary transition-colors">
-            À propos
+            {t('nav.about')}
           </Link>
           <Link to="/contact" className="text-foreground hover:text-primary transition-colors">
-            Contact
+            {t('nav.contact')}
           </Link>
         </nav>
 
         {/* Desktop Auth Button */}
-        <div className="hidden md:flex">
+        <div className="hidden md:flex items-center space-x-4">
+          <LanguageToggle />
           <UserButton />
         </div>
 
@@ -60,34 +61,28 @@ const Header = () => {
         <div className="md:hidden border-t bg-background">
           <nav className="container mx-auto flex flex-col space-y-4 px-4 py-4">
             <Link 
-              to="/" 
-              className="text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Accueil
-            </Link>
-            <Link 
               to="/podcasts" 
               className="text-foreground hover:text-primary transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Podcasts
+              {t('nav.podcasts')}
             </Link>
             <Link 
               to="/about" 
               className="text-foreground hover:text-primary transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              À propos
+              {t('nav.about')}
             </Link>
             <Link 
               to="/contact" 
               className="text-foreground hover:text-primary transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Contact
+              {t('nav.contact')}
             </Link>
-            <div className="pt-4 border-t">
+            <div className="pt-4 border-t flex flex-col space-y-4">
+              <LanguageToggle />
               <UserButton />
             </div>
           </nav>

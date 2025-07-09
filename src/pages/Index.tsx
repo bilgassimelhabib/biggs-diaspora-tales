@@ -8,6 +8,7 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import PodcastCard from "@/components/PodcastCard";
 import { useNewsletter } from "@/hooks/useNewsletter";
+import { useI18n } from "@/hooks/useI18n";
 
 // Mock data pour les podcasts
 const featuredPodcasts = [
@@ -61,6 +62,7 @@ const featuredPodcasts = [
 const Index = () => {
   const [email, setEmail] = useState("");
   const { subscribe, loading } = useNewsletter();
+  const { t } = useI18n();
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,24 +84,22 @@ const Index = () => {
         <div className="relative container mx-auto text-center text-white">
           <div className="max-w-4xl mx-auto">
             <Badge className="mb-6 bg-white/20 text-white border-white/30">
-              🎧 Nouveau média multiculturel
+              {t('hero.badge')}
             </Badge>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Bigg's Media
+              {t('hero.title')}
             </h1>
             <p className="text-xl md:text-2xl mb-4 text-white/90">
-              Cultures de la Diaspora Mondiale
+              {t('hero.subtitle')}
             </p>
             <p className="text-lg mb-8 max-w-2xl mx-auto text-white/80">
-              Découvrez des podcasts authentiques qui célèbrent la diversité, 
-              racontent les histoires uniques des communautés de la diaspora 
-              et créent des ponts entre les cultures.
+              {t('hero.description')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-3">
                 <Play className="h-5 w-5 mr-2" />
-                <span className="text-primary font-semibold">Écouter maintenant</span>
+                <span className="text-primary font-semibold">{t('hero.listen')}</span>
               </Button>
               <Button 
                 variant="hero" 
@@ -107,7 +107,7 @@ const Index = () => {
                 className="px-8 py-3"
               >
                 <Headphones className="h-5 w-5 mr-2" />
-                Découvrir nos podcasts
+                {t('hero.discover')}
               </Button>
             </div>
           </div>
@@ -118,13 +118,12 @@ const Index = () => {
       <section className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <Badge className="mb-4">🎙️ Nos Podcasts</Badge>
+            <Badge className="mb-4">{t('podcasts.badge')}</Badge>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Histoires Authentiques
+              {t('podcasts.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Plongez dans nos podcasts multiculturels qui donnent la parole 
-              aux communautés de la diaspora mondiale et célèbrent leur richesse culturelle.
+              {t('podcasts.description')}
             </p>
           </div>
           
@@ -137,7 +136,7 @@ const Index = () => {
           <div className="text-center">
             <Link to="/podcasts">
               <Button size="lg" variant="outline" className="group">
-                <span className="text-primary font-semibold">Voir tous les podcasts</span>
+                <span className="text-primary font-semibold">{t('podcasts.viewAll')}</span>
               </Button>
             </Link>
           </div>
@@ -149,14 +148,12 @@ const Index = () => {
         <div className="container mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <Badge className="mb-4">🌍 Notre Mission</Badge>
+              <Badge className="mb-4">{t('mission.badge')}</Badge>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Connecter les Cultures, Raconter les Histoires
+                {t('mission.title')}
               </h2>
               <p className="text-lg text-muted-foreground mb-6">
-                Bigg's Media est né de la conviction que chaque culture de la diaspora 
-                a des histoires uniques à raconter. Nous créons un espace où ces voix 
-                peuvent s'exprimer librement et toucher un public mondial.
+                {t('mission.description')}
               </p>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
@@ -175,7 +172,7 @@ const Index = () => {
               <div className="mt-8">
                 <Link to="/about">
                   <Button size="lg">
-                    <span className="text-white font-semibold">En savoir plus</span>
+                    <span className="text-white font-semibold">{t('mission.learnMore')}</span>
                   </Button>
                 </Link>
               </div>
@@ -208,16 +205,15 @@ const Index = () => {
           <Card className="bg-gradient-podcast text-white shadow-glow max-w-4xl mx-auto">
             <CardContent className="p-8 md:p-12 text-center">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Restez Connectés
+                {t('newsletter.title')}
               </h2>
               <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-                Recevez les derniers épisodes, les actualités de nos créateurs 
-                et les événements de la communauté directement dans votre boîte mail.
+                {t('newsletter.description')}
               </p>
               <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                 <input
                   type="email"
-                  placeholder="Votre adresse email"
+                  placeholder={t('newsletter.placeholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 px-4 py-3 rounded-lg text-foreground border border-white/20 bg-white/10 backdrop-blur-sm placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-white/30"
@@ -229,7 +225,7 @@ const Index = () => {
                   className="bg-white text-primary hover:bg-white/90 font-semibold px-6"
                 >
                   <span className="text-primary font-semibold">
-                    {loading ? 'Chargement...' : 'S\'abonner'}
+                    {loading ? t('common.loading') : t('newsletter.subscribe')}
                   </span>
                 </Button>
               </form>

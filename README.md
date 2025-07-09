@@ -1,236 +1,178 @@
+# Bigg's Media - Podcast Platform for Global Diaspora Cultures
 
-# Bigg's Media - Cultures de la Diaspora Mondiale
+A modern podcast platform celebrating multicultural content and diaspora communities worldwide. Built with React, TypeScript, and Supabase.
 
-Bigg's Media est un média innovant dédié aux cultures de la diaspora mondiale, avec une forte orientation multiculturelle, inclusive et créative. Nous connectons les communautés, racontons leurs histoires et promouvons le dialogue interculturel à travers nos podcasts authentiques.
+## 🚀 Features
 
-## 🎯 Mission
+### Core Features
+- 🎧 **Podcast Streaming** - High-quality audio streaming
+- 📱 **Responsive Design** - Optimized for all devices
+- 🌐 **Multi-language Support** - French and English interface
+- 🎨 **Modern UI** - Beautiful design with dark/light mode
 
-Créer un espace où les voix des communautés de la diaspora peuvent s'exprimer librement et toucher un public mondial. Nous célébrons la diversité, racontons des histoires authentiques et créons des ponts entre les cultures.
+### Advanced Features (Powered by Supabase)
+- 🔐 **User Authentication** - Secure user accounts and profiles
+- 💬 **Comments & Ratings** - Episode feedback system
+- 📋 **Personal Playlists** - Save and organize favorite episodes
+- 🔔 **Push Notifications** - Alerts for new episodes
+- 📱 **Offline Mode** - Download episodes for offline listening
+- 🌍 **Internationalization** - Built-in i18n system
 
-## 🎧 Fonctionnalités Actuelles
+## 🛠️ Tech Stack
 
-### ✅ Implémentées
-- **Page d'accueil dynamique** avec présentation du média
-- **Section podcasts** avec grille de podcasts disponibles
-- **Pages dédiées aux podcasts** avec :
-  - Bannière et couverture visuelle
-  - Description complète du podcast
-  - Liste des épisodes (titre, durée, date)
-  - Lecteur audio HTML5 intégré et moderne
-  - Boutons de partage social
-  - Interface responsive (mobile/tablette/desktop)
-- **Page À propos** complète avec :
-  - Mission et présentation de Bigg's Media
-  - Valeurs fondamentales (Inclusion, Diversité, Communauté, Authenticité)
-  - Présentation de l'équipe
-  - Section d'appel à l'action
-- **Page Contact** avec :
-  - Formulaire de contact complet et fonctionnel
-  - Informations de contact (email, téléphone, localisation)
-  - Liens vers les réseaux sociaux
-  - Section collaboration et partenariats
-- **Design system complet** avec :
-  - Palette de couleurs inspirée du logo (dégradés de bleus)
-  - Animations et transitions fluides
-  - Composants réutilisables
-  - Amélioration des contrastes et visibilité du texte
-- **Navigation intuitive** avec header responsive
-- **SEO optimisé** avec métadonnées appropriées
-- **Configuration Docker** pour développement et production
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS, Shadcn/ui components
+- **Backend**: Supabase (PostgreSQL, Auth, Real-time, Storage)
+- **Deployment**: Netlify
+- **Icons**: Lucide React
+- **State Management**: React Query (TanStack Query)
 
-### 🔄 En Cours de Développement
-- **Lecteur flottant** pour navigation continue pendant l'écoute
-- **Système de téléchargement** des épisodes
-- **Intégration réseaux sociaux** avancée
+## 📦 Installation
 
-## 🚀 Fonctionnalités à Implémenter
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd biggs-media
+   ```
 
-### Pages et Fonctionnalités Principales
-- [ ] **Blog** - Système de blog avec catégories pour articles culturels
-- [ ] **Système de recherche avancée** avec filtres par région/thème
-- [ ] **Newsletter** - Système d'abonnement fonctionnel avec intégration email
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-### Fonctionnalités Avancées (Nécessitent Supabase)
-- [ ] **Multi-langue** (FR/EN) avec système i18n
-- [ ] **Authentification utilisateur** - Comptes et profils
-- [ ] **Commentaires et évaluations** sur les épisodes
-- [ ] **Playlists personnalisées** pour les utilisateurs
-- [ ] **Notifications push** pour nouveaux épisodes
-- [ ] **Mode hors-ligne** pour écoute sans connexion
+3. **Environment Setup**
+   - The project uses Supabase configuration from `src/integrations/supabase/client.ts`
+   - No additional environment variables needed for basic functionality
 
-### Intégrations Techniques à Prévoir
-- [ ] **Supabase** - Base de données, authentification, stockage
-- [ ] **CMS headless** pour gestion de contenu
-- [ ] **Service d'emailing** (Mailchimp, SendGrid) pour newsletter
-- [ ] **Analytics** pour suivi d'audience
-- [ ] **CDN** pour optimisation des médias
-- [ ] **API REST** pour applications mobiles futures
+4. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-## 🏗️ Architecture Technique
+## 🌐 Deployment
 
-### Frontend
-- **React 18** avec TypeScript
-- **Vite** pour le bundling et développement
-- **Tailwind CSS** avec design system personnalisé
-- **Shadcn/ui** pour les composants de base
-- **React Router** pour la navigation
-- **React Hook Form** + **Zod** pour la gestion des formulaires
-- **Lucide React** pour les icônes
+### Netlify Deployment
+The project is configured for easy deployment on Netlify:
 
-### Design System
-- **Couleurs** : Dégradés de bleus inspirés du logo
-- **Tokens sémantiques** : Variables CSS pour cohérence
-- **Composants** : Bibliothèque extensible et réutilisable
-- **Responsive** : Mobile-first avec breakpoints adaptatifs
-- **Accessibilité** : Contrastes améliorés et lisibilité optimisée
+1. **Connect to Netlify**
+   - Connect your repository to Netlify
+   - Build command: `npm run build`
+   - Publish directory: `dist`
 
-### Structure des Fichiers
-```
-src/
-├── components/          # Composants réutilisables
-│   ├── ui/             # Composants de base (shadcn)
-│   ├── Header.tsx      # Navigation principale
-│   ├── PodcastCard.tsx # Carte de podcast
-│   └── AudioPlayer.tsx # Lecteur audio
-├── pages/              # Pages de l'application
-│   ├── Index.tsx       # Page d'accueil
-│   ├── Podcasts.tsx    # Liste des podcasts
-│   ├── PodcastDetail.tsx # Détail d'un podcast
-│   ├── About.tsx       # Page à propos
-│   ├── Contact.tsx     # Page contact
-│   └── NotFound.tsx    # Page 404
-├── lib/                # Utilitaires
-└── assets/             # Images et médias
-```
+2. **Automatic Deployment**
+   - The `netlify.toml` configuration handles:
+     - SPA routing redirects
+     - Asset optimization
+     - Cache headers
 
-## 🐳 Docker
+3. **Domain Configuration**
+   - Update Supabase Auth settings with your domain
+   - Configure redirect URLs in Supabase Dashboard
 
-Le projet inclut une configuration Docker complète pour faciliter le développement et le déploiement.
+## 🔧 Available Scripts
 
-### Commandes Docker
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-**Production :**
-```bash
-# Build et lancement
-docker-compose up --build
+## 🗄️ Database Schema
 
-# Accès : http://localhost:3000
-```
+The project uses the following main tables:
+- `profiles` - User profile information
+- `podcasts` - Podcast metadata
+- `episodes` - Episode content and metadata
+- `comments` - User comments and ratings
+- `playlists` - User-created playlists
+- `playlist_items` - Episodes in playlists
+- `newsletter_subscribers` - Email subscribers
 
-**Développement :**
-```bash
-# Lancement en mode dev avec hot-reload
-docker-compose --profile dev up --build
+## 🔐 Authentication
 
-# Accès : http://localhost:8080
-```
+User authentication is handled through Supabase Auth with:
+- Email/password registration and login
+- User profiles with additional metadata
+- Row Level Security (RLS) for data protection
+- Automatic profile creation on signup
 
-### Fichiers Docker
-- `Dockerfile` - Image de production optimisée
-- `Dockerfile.dev` - Image de développement avec hot-reload
-- `docker-compose.yml` - Orchestration des services
-- `.dockerignore` - Exclusions pour optimiser le build
+## 🌍 Internationalization
 
-## 🚀 Installation et Développement
+The platform supports multiple languages:
+- **French** (default)
+- **English**
 
-### Prérequis
-- Node.js 18+ et npm
-- Docker (optionnel)
+To add new languages:
+1. Update `src/hooks/useI18n.ts` with new translations
+2. Add language option to `LanguageToggle` component
 
-### Installation locale
-```bash
-# Cloner le repository
-git clone <YOUR_GIT_URL>
-cd <YOUR_PROJECT_NAME>
+## 📱 Progressive Web App Features
 
-# Installer les dépendances
-npm install
+Future enhancements include:
+- Service Worker for offline functionality
+- Push notification support
+- App-like experience on mobile devices
 
-# Lancer en développement
-npm run dev
+## 🎨 Design System
 
-# Build pour production
-npm run build
-```
+The project uses a comprehensive design system with:
+- Semantic color tokens
+- Consistent spacing and typography
+- Dark/light mode support
+- Responsive breakpoints
+- Custom component variants
 
-### Avec Docker
-```bash
-# Développement
-docker-compose --profile dev up
+## 📊 Performance
 
-# Production
-docker-compose up
-```
+- Lazy loading for components and routes
+- Optimized images with proper caching
+- Bundle splitting and code optimization
+- CDN delivery through Netlify
 
-## 🔗 Intégration Backend (Supabase)
+## 🔄 Real-time Features
 
-Pour les fonctionnalités avancées nécessitant un backend (authentification, base de données, etc.), nous recommandons l'intégration native avec Supabase :
+Powered by Supabase Real-time:
+- Live comments and ratings
+- Real-time notifications
+- User presence tracking
 
-### Fonctionnalités Backend Disponibles
-- **Authentification** - Login/logout, gestion des profils
-- **Base de données** - Stockage des contenus, commentaires, playlists
-- **Stockage de fichiers** - Upload d'images, audio, documents
-- **Edge Functions** - APIs personnalisées, intégrations tierces
-- **Real-time** - Notifications en temps réel
+## 📖 API Documentation
 
-### Activation
-1. Cliquer sur le bouton Supabase (vert) en haut à droite
-2. Connecter ou créer un projet Supabase
-3. Configurer les tables et politiques RLS
-4. Implémenter les fonctionnalités une par une
+The project integrates with Supabase APIs:
+- **Database**: PostgreSQL with auto-generated TypeScript types
+- **Authentication**: Built-in user management
+- **Storage**: File upload and management
+- **Real-time**: Live data synchronization
 
-## 🎨 Design et Inspiration
+## 🤝 Contributing
 
-### Références Stylistiques
-- [AfroQueer Podcast](https://www.afroqueerpodcast.com)
-- [Queerency](https://www.queerency.com)
-- [StoryCorps](https://www.storycorps.org)
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
-### Identité Visuelle
-- **Logo** : Formes géométriques modernes en dégradé de bleus
-- **Palette** : Bleus vibrants du cyan au bleu profond
-- **Style** : Moderne, inclusif, accessible et engageant
+## 📄 License
 
-## 📈 Roadmap
+This project is proprietary. All rights reserved.
 
-### Phase 1 (✅ Terminée) - Foundation
-- [x] Design system et composants de base
-- [x] Pages principales (Accueil, Podcasts, Détail, À propos, Contact)
-- [x] Lecteur audio intégré
-- [x] Configuration Docker
-- [x] Formulaires fonctionnels
+## 🆘 Support
 
-### Phase 2 - Content & Backend
-- [ ] Intégration Supabase
-- [ ] Système de newsletter
-- [ ] Blog avec CMS
-- [ ] Authentification utilisateur
+For support and questions:
+- Check the documentation in `/docs`
+- Review Supabase integration guide
+- Contact the development team
 
-### Phase 3 - Advanced Features
-- [ ] Multi-langue (FR/EN)
-- [ ] Lecteur flottant
-- [ ] Commentaires et évaluations
-- [ ] Playlists personnalisées
+## 🚀 Roadmap
 
-### Phase 4 - Scale & Mobile
-- [ ] Mode hors-ligne
-- [ ] Application mobile (React Native)
-- [ ] Notifications push
-- [ ] Analytics avancés
-
-## 🤝 Contribution
-
-Ce projet est conçu pour évoluer avec la communauté. Les contributions sont les bienvenues pour :
-- Nouvelles fonctionnalités
-- Améliorations UX/UI
-- Corrections de bugs
-- Traductions
-- Optimisations performances
-
-## 📄 Licence
-
-Ce projet représente l'identité de Bigg's Media. Voir les conditions d'utilisation pour plus de détails.
+- [ ] Enhanced offline capabilities
+- [ ] Advanced analytics dashboard
+- [ ] Social sharing features
+- [ ] Live streaming support
+- [ ] Mobile application (React Native)
+- [ ] Content creator tools
+- [ ] Advanced search and filtering
+- [ ] Integration with external podcast platforms
 
 ---
 
-**Bigg's Media** - Connecter les cultures, raconter les histoires 🌍🎙️
+Built with ❤️ for the global diaspora community
