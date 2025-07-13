@@ -1,4 +1,3 @@
-
 import { useParams } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -221,7 +220,6 @@ const PodcastDetail = () => {
                   <AudioPlayer
                     title={selectedEpisode.title}
                     audioUrl={selectedEpisode.audioUrl}
-                    coverImage={podcast.coverImage}
                   />
                 </CardContent>
               </Card>

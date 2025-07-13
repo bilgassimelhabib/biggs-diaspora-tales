@@ -32,17 +32,32 @@ export const useComments = (episodeId?: string) => {
     if (!episodeId) return;
     
     try {
-      const { data, error } = await supabase
+      // First get comments
+      const { data: commentsData, error } = await supabase
         .from('comments')
-        .select(`
-          *,
-          profiles(name, avatar_url)
-        `)
+        .select('*')
         .eq('episode_id', episodeId)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setComments(data || []);
+
+      // Then get profile data for each comment
+      const commentsWithProfiles = await Promise.all(
+        (commentsData || []).map(async (comment) => {
+          const { data: profileData } = await supabase
+            .from('profiles')
+            .select('name, avatar_url')
+            .eq('id', comment.user_id)
+            .single();
+
+          return {
+            ...comment,
+            profiles: profileData || { name: 'Utilisateur anonyme' }
+          };
+        })
+      );
+
+      setComments(commentsWithProfiles);
     } catch (error) {
       console.error('Error fetching comments:', error);
     } finally {
@@ -63,21 +78,30 @@ export const useComments = (episodeId?: string) => {
           episode_id: episodeId,
           user_id: user.id
         })
-        .select(`
-          *,
-          profiles(name, avatar_url)
-        `)
+        .select()
         .single();
 
       if (error) throw error;
 
-      setComments(prev => [data, ...prev]);
+      // Get profile data for the new comment
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('name, avatar_url')
+        .eq('id', user.id)
+        .single();
+
+      const newComment = {
+        ...data,
+        profiles: profileData || { name: 'Utilisateur anonyme' }
+      };
+
+      setComments(prev => [newComment, ...prev]);
       toast({
         title: "Commentaire ajouté",
         description: "Votre commentaire a été publié avec succès.",
       });
       
-      return data;
+      return newComment;
     } catch (error) {
       console.error('Error adding comment:', error);
       toast({
@@ -95,16 +119,25 @@ export const useComments = (episodeId?: string) => {
         .from('comments')
         .update({ content, rating })
         .eq('id', commentId)
-        .select(`
-          *,
-          profiles(name, avatar_url)
-        `)
+        .select()
         .single();
 
       if (error) throw error;
 
+      // Get profile data for the updated comment
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('name, avatar_url')
+        .eq('id', data.user_id)
+        .single();
+
+      const updatedComment = {
+        ...data,
+        profiles: profileData || { name: 'Utilisateur anonyme' }
+      };
+
       setComments(prev =>
-        prev.map(c => c.id === commentId ? data : c)
+        prev.map(c => c.id === commentId ? updatedComment : c)
       );
       
       toast({

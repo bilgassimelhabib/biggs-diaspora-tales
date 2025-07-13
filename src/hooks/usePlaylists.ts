@@ -40,27 +40,44 @@ export const usePlaylists = () => {
 
   const fetchPlaylists = async () => {
     try {
-      const { data, error } = await supabase
+      // First get playlists
+      const { data: playlistsData, error } = await supabase
         .from('playlists')
-        .select(`
-          *,
-          playlist_items(
-            id,
-            episode_id,
-            created_at,
-            episodes(
-              id,
-              title,
-              description,
-              duration,
-              podcasts(title, cover_image_url)
-            )
-          )
-        `)
+        .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setPlaylists(data || []);
+
+      // Then get playlist items with episode data for each playlist
+      const playlistsWithItems = await Promise.all(
+        (playlistsData || []).map(async (playlist) => {
+          const { data: itemsData } = await supabase
+            .from('playlist_items')
+            .select(`
+              id,
+              episode_id,
+              created_at,
+              episodes(
+                id,
+                title,
+                description,
+                duration,
+                podcasts(title, cover_image_url)
+              )
+            `)
+            .eq('playlist_id', playlist.id);
+
+          return {
+            ...playlist,
+            playlist_items: (itemsData || []).map(item => ({
+              ...item,
+              playlist_id: playlist.id
+            }))
+          };
+        })
+      );
+
+      setPlaylists(playlistsWithItems);
     } catch (error) {
       console.error('Error fetching playlists:', error);
     } finally {
@@ -111,7 +128,9 @@ export const usePlaylists = () => {
           episode_id: episodeId
         })
         .select(`
-          *,
+          id,
+          episode_id,
+          created_at,
           episodes(
             id,
             title,
@@ -124,10 +143,15 @@ export const usePlaylists = () => {
 
       if (error) throw error;
 
+      const itemWithPlaylistId = {
+        ...data,
+        playlist_id: playlistId
+      };
+
       setPlaylists(prev =>
         prev.map(p =>
           p.id === playlistId
-            ? { ...p, playlist_items: [...(p.playlist_items || []), data] }
+            ? { ...p, playlist_items: [...(p.playlist_items || []), itemWithPlaylistId] }
             : p
         )
       );

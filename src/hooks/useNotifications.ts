@@ -31,17 +31,31 @@ export const useNotifications = () => {
           event: 'INSERT',
           schema: 'public',
           table: 'notifications',
-          filter: `user_id=eq.${supabase.auth.getUser().then(u => u.data.user?.id)}`
         },
         (payload) => {
-          const newNotification = payload.new as Notification;
-          setNotifications(prev => [newNotification, ...prev]);
-          setUnreadCount(prev => prev + 1);
-          
-          // Show toast for new notification
-          toast({
-            title: newNotification.title,
-            description: newNotification.message,
+          const newNotification = payload.new as any;
+          // Only add notification if it's for the current user
+          supabase.auth.getUser().then(({ data: { user } }) => {
+            if (user && newNotification.user_id === user.id) {
+              const notification: Notification = {
+                id: newNotification.id,
+                title: newNotification.title,
+                message: newNotification.message,
+                type: newNotification.type as Notification['type'],
+                read: newNotification.read,
+                data: newNotification.data,
+                created_at: newNotification.created_at,
+              };
+              
+              setNotifications(prev => [notification, ...prev]);
+              setUnreadCount(prev => prev + 1);
+              
+              // Show toast for new notification
+              toast({
+                title: notification.title,
+                description: notification.message,
+              });
+            }
           });
         }
       )
@@ -62,8 +76,18 @@ export const useNotifications = () => {
 
       if (error) throw error;
 
-      setNotifications(data || []);
-      setUnreadCount(data?.filter(n => !n.read).length || 0);
+      const typedNotifications: Notification[] = (data || []).map(item => ({
+        id: item.id,
+        title: item.title,
+        message: item.message,
+        type: item.type as Notification['type'],
+        read: item.read,
+        data: item.data,
+        created_at: item.created_at,
+      }));
+
+      setNotifications(typedNotifications);
+      setUnreadCount(typedNotifications.filter(n => !n.read).length);
     } catch (error) {
       console.error('Error fetching notifications:', error);
     } finally {
